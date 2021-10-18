@@ -45,6 +45,13 @@ namespace MathForGames
             base.Update(deltaTime);
         }
 
+        public override void Draw()
+        {
+            base.Draw();
+
+
+        }
+
         public override void OnCollision(Actor actor)
         {
             Console.WriteLine("Collision Occurred");
