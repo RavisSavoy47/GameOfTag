@@ -49,6 +49,25 @@ namespace MathLibrary1
 
         }
 
+        /// <param name="lhs">The left hand side of the operation</param>
+        /// <param name="rhs">The right hand side of the operation</param>
+        /// <returns>The dot product of the first vector on the second</returns>
+        public static float DotProduct(Vector2 lhs, Vector2 rhs)
+        {
+            return (lhs.X * rhs.X) + (lhs.Y * rhs.Y);
+        }
+
+        /// <summary>
+        /// Finds the distance from the first vector to the second
+        /// </summary>
+        /// <param name="lhs">The starting point</param>
+        /// <param name="rhs">The ending point</param>
+        /// <returns>A scalar representing the distance</returns>
+        public static float Distance(Vector2 lhs, Vector2 rhs)
+        {
+            return (rhs - lhs).Magnitude;
+        }
+
         /// <summary>
         /// Adds the x value of the second vector to the first, and adds the y vaqlue to the first
         /// </summary>

@@ -10,7 +10,7 @@ namespace MathForGames
     {
         private float _speed;
         private Vector2 _velocity;
-        public Player _player;
+        public Actor _target;
 
         public float Speed
         {
@@ -24,25 +24,33 @@ namespace MathForGames
             set { _velocity = value; }
         }
 
-        public Enemy(char icon, float x, float y, float speed, Player player, Color color, string name = "Enemy")
+        public Enemy(char icon, float x, float y, float speed, Actor target, Color color, string name = "Enemy")
             : base(icon, x, y, color, name)
         {
-            _player = player;
+            _target = target;
             _speed = speed;
         }
 
         public override void Update(float deltaTime)
         {
-            float xDirection = _player.Position.X - Position.X;
-            float yDirection = _player.Position.Y - Position.Y;
+            //Create a vector that stores the move input
+            Vector2 moveDirection = (_target.Position - Position).Normalized;
 
-            Vector2 moveDirection = new Vector2(xDirection, yDirection);
+            Velocity = moveDirection * Speed * deltaTime;
 
-            Velocity = moveDirection.Normalized * Speed * deltaTime;
+            if(GetTargetInSight())
+                Position += Velocity;
 
-            Position += Velocity;
+            
 
             base.Update(deltaTime);
+        }
+
+        public bool GetTargetInSight()
+        {
+            Vector2 directionOfTarget = (_target.Position - Position).Normalized;
+
+            return Vector2.DotProduct(directionOfTarget, Forward) > 0;
         }
 
         public override void OnCollision(Actor actor)
