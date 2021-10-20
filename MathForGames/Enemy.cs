@@ -46,13 +46,18 @@ namespace MathForGames
             base.Update(deltaTime);
         }
 
+        /// <summary>
+        /// Lets the enemy see their target
+        /// </summary>
+        /// <returns>True if there is a target inside</returns>
         public bool GetTargetInSight()
         {
             Vector2 directionOfTarget = (_target.Position - Position).Normalized;
 
+            //Created a range for their sight
             float distanceOfTarget = Vector2.Distance(_target.Position, Position);
            
-            return Math.Acos(Vector2.DotProduct(directionOfTarget, Forward)) * (180 / Math.PI) > 45 &&  distanceOfTarget < 200;
+            return Math.Acos(Vector2.DotProduct(directionOfTarget, Forward)) * (180 / Math.PI) < 45 &&  distanceOfTarget < 200;
 
         }
 
