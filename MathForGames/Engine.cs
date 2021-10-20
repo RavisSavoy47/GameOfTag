@@ -64,10 +64,14 @@ namespace MathForGames
                       
             Player player = new Player('@', 10, 5, 200, Color.VIOLET, "Player");
 
-            Enemy enemy = new Enemy('E', 5, 5, 100, player, Color.YELLOW, "Enemy");
+            Enemy actor = new Enemy('E', 5, 5, 100, 100, 1, player, Color.YELLOW, "Enemy");
+
+            UIText text = new UIText(10, 10, "TestTextBox", Color.BLACK, 70, 70, 15, "This is test text. \nIt is not to be taken seriously");
+
+            scene.AddUIElement(text);
 
             scene.AddActor(player);
-            scene.AddActor(enemy);
+            scene.AddActor(actor);
 
             _currentSceneIndex = AddScene(scene);
             _scenes[_currentSceneIndex].Start();
@@ -80,6 +84,7 @@ namespace MathForGames
         private void Update(float deltaTime)
         {
             _scenes[_currentSceneIndex].Update(deltaTime);
+            _scenes[_currentSceneIndex].UpdateUI(deltaTime);
 
             while (Console.KeyAvailable)
                 Console.ReadKey(true);
@@ -94,6 +99,7 @@ namespace MathForGames
             Raylib.ClearBackground(Color.SKYBLUE);
             //Adds all actors icons to buffer
             _scenes[_currentSceneIndex].Draw();
+            _scenes[_currentSceneIndex].DrawUI();
 
             Raylib.EndDrawing();
         }

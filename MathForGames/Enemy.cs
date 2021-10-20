@@ -11,6 +11,8 @@ namespace MathForGames
         private float _speed;
         private Vector2 _velocity;
         public Actor _target;
+        private float _maxSightDistance;
+        private float _maxViewAngle;
 
         public float Speed
         {
@@ -24,11 +26,13 @@ namespace MathForGames
             set { _velocity = value; }
         }
 
-        public Enemy(char icon, float x, float y, float speed, Actor target, Color color, string name = "Enemy")
+        public Enemy(char icon, float x, float y, float speed, float maxSightDistance, float maxViewAngle, Actor target, Color color, string name = "Enemy")
             : base(icon, x, y, color, name)
         {
             _target = target;
             _speed = speed;
+            _maxSightDistance = maxSightDistance;
+            _maxViewAngle = maxViewAngle;
         }
 
         public override void Update(float deltaTime)
@@ -49,15 +53,17 @@ namespace MathForGames
         /// <summary>
         /// Lets the enemy see their target
         /// </summary>
-        /// <returns>True if there is a target inside</returns>
+        /// <returns>True if there is a target in sight</returns>
         public bool GetTargetInSight()
         {
             Vector2 directionOfTarget = (_target.Position - Position).Normalized;
 
             //Created a range for their sight
             float distanceOfTarget = Vector2.Distance(_target.Position, Position);
-           
-            return Math.Acos(Vector2.DotProduct(directionOfTarget, Forward)) * (180 / Math.PI) < 45 &&  distanceOfTarget < 200;
+
+            float dotProduct = Vector2.DotProduct(directionOfTarget, Forward);
+
+            return Math.Acos(dotProduct) < _maxViewAngle &&  distanceOfTarget < _maxSightDistance;
 
         }
 
