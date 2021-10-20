@@ -50,7 +50,12 @@ namespace MathForGames
         {
             Vector2 directionOfTarget = (_target.Position - Position).Normalized;
 
-            return Vector2.DotProduct(directionOfTarget, Forward) > 0;
+            float distanceOfTarget = Vector2.Distance(_target.Position, Position);
+
+            if (Vector2.Distance(_target.Position, Position) > Math.Acos(.5))
+                return Vector2.DotProduct(directionOfTarget, Forward) > .5 &&  distanceOfTarget < 200;
+
+            return false;
         }
 
         public override void OnCollision(Actor actor)

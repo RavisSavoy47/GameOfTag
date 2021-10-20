@@ -62,7 +62,7 @@ namespace MathForGames
 
             Scene scene = new Scene();
                       
-            Player player = new Player('@', 10, 5, 150, Color.VIOLET, "Player");
+            Player player = new Player('@', 10, 5, 200, Color.VIOLET, "Player");
 
             Enemy enemy = new Enemy('E', 5, 5, 100, player, Color.YELLOW, "Enemy");
 
