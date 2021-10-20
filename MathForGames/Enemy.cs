@@ -51,11 +51,9 @@ namespace MathForGames
             Vector2 directionOfTarget = (_target.Position - Position).Normalized;
 
             float distanceOfTarget = Vector2.Distance(_target.Position, Position);
+           
+            return Math.Acos(Vector2.DotProduct(directionOfTarget, Forward)) * (180 / Math.PI) > 45 &&  distanceOfTarget < 200;
 
-            if (Vector2.Distance(_target.Position, Position) > Math.Acos(.5))
-                return Vector2.DotProduct(directionOfTarget, Forward) > .5 &&  distanceOfTarget < 200;
-
-            return false;
         }
 
         public override void OnCollision(Actor actor)
