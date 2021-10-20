@@ -48,12 +48,12 @@ namespace MathForGames
         public override void Draw()
         {
             base.Draw();
-
         }
 
         public override void OnCollision(Actor actor)
         {
-            Console.WriteLine("Collision Occurred");
+            if (actor is Enemy)
+                Engine.CloseApplication();
         }
     }
 }

@@ -60,19 +60,18 @@ namespace MathForGames
             Raylib.InitWindow(800, 450, "Math For Games");
             Raylib.SetTargetFPS(60);
 
-            Scene scene = new Scene();
-                      
-            Player player = new Player('@', 10, 5, 200, Color.VIOLET, "Player");
-
-            Enemy actor = new Enemy('E', 5, 5, 100, 100, 1, player, Color.YELLOW, "Enemy");
-
-            UIText text = new UIText(10, 10, "TestTextBox", Color.BLACK, 70, 70, 15, "This is test text. \nIt is not to be taken seriously");
+            Scene scene = new Scene();                      
+            Player player = new Player('@', 10, 20, 200, Color.VIOLET, "Player");
+            player.CollisionRadius = 20;
+            Enemy actor = new Enemy('E', 300, 20, 100, 100, 1, player, Color.YELLOW, "Enemy");
+            actor.CollisionRadius = 20;
+            //Ui section
+            UIText text = new UIText(200, 200, "TestTextBox", Color.BLACK, 70, 70, 15, "This world is not real....");
 
             scene.AddUIElement(text);
 
             scene.AddActor(player);
             scene.AddActor(actor);
-
             _currentSceneIndex = AddScene(scene);
             _scenes[_currentSceneIndex].Start();
             Console.CursorVisible = false;
